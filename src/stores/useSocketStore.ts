@@ -102,8 +102,6 @@ export const useSocketStore = create<SocketState>((set, get) => ({
         });
       });
 
-
-
       socket.on('player-joined', (data) => {
         set({
           messages: [...get().messages, data],

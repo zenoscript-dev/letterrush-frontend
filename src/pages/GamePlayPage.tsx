@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router';
-import { Chat } from '../components/chat';
+import Chat from '../components/chat/Chat';
 import { useSocketStore } from '../stores/useSocketStore';
 
 const GamePlayPage = () => {
