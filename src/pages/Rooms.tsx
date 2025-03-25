@@ -1,22 +1,21 @@
 import { useEffect } from 'react';
-import { Room, useSocketStore } from '../stores/useSocketStore';
-import { RoomCard } from '../components/RoomCard';
-import { useLocation, useNavigate } from 'react-router';
 import toast from 'react-hot-toast';
+import { useLocation, useNavigate } from 'react-router';
+import { RoomCard } from '../components/RoomCard';
+import { Room, useSocketStore } from '../stores/useSocketStore';
 
 const Rooms = () => {
   const { state } = useLocation();
-  const userId = state?.userId;
+  const nickname = state?.nickname;
   const navigate = useNavigate();
-  const { getRoomList, roomList, error, disconnectSocket } = useSocketStore();
-  console.log(roomList, 'roomList');
+  const { getRoomList, roomList, error,connectSocketAndJoinRoom } = useSocketStore();
 
   useEffect(() => {
     try {
-      // disconnectSocket();x
+      // disconnectSocket();
       getRoomList();
     } catch (error) {
-      alert('Error connecting to socket');
+      toast.error(error as string);
     }
 
     // Poll for room updates every 5 seconds
@@ -32,8 +31,14 @@ const Rooms = () => {
   }
 
   const handleRoomClick = (roomId: string) => {
-    navigate(`/game`, { state: { roomId, userId } });
+    try {
+      connectSocketAndJoinRoom(roomId, nickname);
+      navigate(`/game`, { state: { roomId, nickName: nickname } });
+    } catch (error) {
+      toast.error(error as string);
+    }
   };
+
 
   return (
     <div className='min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900'>
@@ -43,7 +48,7 @@ const Rooms = () => {
             Game Rooms
           </h1>
           <p className='text-lg text-gray-400 transition-colors duration-300 hover:text-primary-color'>
-            Choose a room to start racing!
+            Choose a room to start typing!
           </p>
         </div>
 

@@ -13,7 +13,7 @@ const SplashPage = () => {
   return (
     <div className='center h-screen w-screen'>
       <h1 className='text-6xl font-bold text-primary-color'>
-        <span className='typewriter'>TypeRacerX...</span>
+        <span className='typewriter'>LETTER RUSH...</span>
       </h1>
     </div>
   );
