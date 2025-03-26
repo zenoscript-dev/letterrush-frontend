@@ -1,9 +1,8 @@
-import { Routes, Route, Navigate } from 'react-router';
-import SplashPage from './pages/SplashPage';
-import HomePage from './pages/HomePage';
-import OpenRoom from './pages/Rooms';
-import Rooms from './pages/Rooms';
+import { Navigate, Route, Routes } from 'react-router';
 import GamePlayPage from './pages/GamePlayPage';
+import HomePage from './pages/HomePage';
+import Rooms from './pages/Rooms';
+import SplashPage from './pages/SplashPage';
 
 const Router = () => {
   return (
