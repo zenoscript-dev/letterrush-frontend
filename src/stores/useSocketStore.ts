@@ -179,6 +179,7 @@ export const useSocketStore = create<SocketState>((set, get) => ({
       });
 
       socket.on('rank', (data) => {
+        console.log(data,"sadasdasdaasdadas")
         set({
           rank: data,
         });

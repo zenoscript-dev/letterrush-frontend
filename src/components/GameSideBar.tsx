@@ -27,7 +27,7 @@ const GameSideBar = () => {
       {/* Rank */}
       <div className='bg-gradient-to-r from-blue-700 to-indigo-500 p-5 rounded-lg text-center shadow-md'>
         <h2 className='text-lg font-bold text-blue-200'>YOUR RANK</h2>
-        <div className='text-4xl font-extrabold text-white'>#{rank+1}</div>
+        <div className='text-4xl font-extrabold text-white'>#{rank}</div>
         <div className='text-sm text-blue-200 mt-1'>of {numberOfPlayers} players</div>
         {/* <div className='text-xs text-blue-200/80 mt-1'>Top {Math.round((currentRank / to) * 100)}%</div> */}
       </div>
