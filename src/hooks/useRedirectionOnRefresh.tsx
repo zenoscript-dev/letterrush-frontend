@@ -4,14 +4,14 @@ import { useSocketStore } from '../stores/useSocketStore';
 
 const useRedirectOnRefresh = () => {
   const navigate = useNavigate();
-  const { disconnectSocket } = useSocketStore();
+  const { disconnectSocket, nickname } = useSocketStore();
 
   useEffect(() => {
     const isRefreshed = sessionStorage.getItem('isRefreshed');
 
     if (isRefreshed) {
       sessionStorage.removeItem('isRefreshed'); // Reset flag
-      disconnectSocket();
+      disconnectSocket(nickname);
       navigate('/'); // Redirect to Home
     }
 

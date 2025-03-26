@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 import { useSocketStore } from '../../stores/useSocketStore';
 import ConfirmLeaveGameModel from '../ConfirmLeaveGameModel';
 import GameSideBar from '../GameSideBar';
-import ChatBody from './ChatBosy';
+import ChatBody from './ChatBody';
 import { ChatHeader } from './ChatHeader';
 import ChatInput from './ChatInput';
 

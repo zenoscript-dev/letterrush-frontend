@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router';
-import { v4 as uuidv4 } from 'uuid';
+import { v7 as uuidv4 } from 'uuid';
 import { Button } from '../components/Button';
 import { useSocketStore } from '../stores/useSocketStore';
 const HomePage = () => {
@@ -10,6 +10,7 @@ const HomePage = () => {
   const [nickname, setNickname] = useState(sessionStorage.getItem('nickname') || '');
   useEffect(() => {
     disconnectSocket(nickname);
+    setNickname('');
     console.log('Disconnected from socket');
   }, [disconnectSocket, navigate]);
 
@@ -19,6 +20,7 @@ const HomePage = () => {
         toast.error('Please enter a nickname');
         return;
       }
+      await sessionStorage.clear();
       const newNickname = `${nickname}@${uuidv4()}`;
       await sessionStorage.setItem('nickname', newNickname);
       navigate('/rooms', { state: { nickname: newNickname } });

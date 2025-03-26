@@ -1,10 +1,8 @@
-import { useLocation } from 'react-router';
 import Chat from '../components/chat/Chat';
 import { useSocketStore } from '../stores/useSocketStore';
 
 const GamePlayPage = () => {
-  const { isConnected, isConnecting, error } = useSocketStore();
-  const {nickName} = useLocation().state as {nickName: string};
+  const { isConnected, isConnecting, error, nickname } = useSocketStore();
 
   if (isConnecting) {
     return <div>Connecting to server...</div>;
@@ -13,7 +11,7 @@ const GamePlayPage = () => {
   if (isConnected) {
     return (
       <div className='h-screen w-screen overflow-hidden bg-bg-color'>
-        <Chat nickName={nickName}/>
+        <Chat nickName={nickname}/>
       </div>
     );
   }

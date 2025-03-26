@@ -1,12 +1,17 @@
-import { io, Socket } from 'socket.io-client';
+import { Socket } from 'socket.io-client';
 import { create } from 'zustand';
+import SocketService from '../services/socket.service';
 
 export interface Room {
   roomId: string;
   roomName: string;
   roomSize: number;
 }
-
+export interface LeaderBoard {
+  nickname: string;
+  rank: number;
+  score: number;
+}
 export interface Message {
   id: string;
   message: string;
@@ -26,6 +31,8 @@ export enum MessageType {
   PLAYER_JOINED = 'player-joined',
   PLAYER_LEFT = 'player-left',
   NUMBER_OF_PLAYERS = 'number-of-players',
+  SCORE = 'score',
+  GAME_STARTED = 'start-game',
 }
 
 interface SocketState {
@@ -44,6 +51,13 @@ interface SocketState {
   messages: Message[] | [];
   numberOfPlayers: number;
   randomWord: string;
+  nickname: string;
+  leaderBoard: {
+    loading: boolean;
+    data: LeaderBoard[];
+  };
+  score: number;
+  rank: number;
 }
 
 export const useSocketStore = create<SocketState>((set, get) => ({
@@ -55,6 +69,13 @@ export const useSocketStore = create<SocketState>((set, get) => ({
   messages: [],
   numberOfPlayers: 0,
   randomWord: '',
+  nickname: '',
+  leaderBoard: {
+    loading: false,
+    data: [],
+  },
+  score: 0,
+  rank: 0,
   getRoomList: async () => {
     try {
       const response: { success: boolean; data: Room[]; error: string } =
@@ -68,17 +89,15 @@ export const useSocketStore = create<SocketState>((set, get) => ({
     }
   },
 
-  connectSocketAndJoinRoom: (roomId: string, nickname: string) => {
+  connectSocketAndJoinRoom: async (roomId: string, nickname: string) => {
     try {
       set({ isConnecting: true, error: null });
+      set({ nickname });
 
-      const socket = io('http://localhost:4100/game', {
-        query: {
-          roomId,
-          nickname,
-        },
-        transports: ['websocket'],
-      });
+      const socket = await SocketService.getInstance().connect(
+        roomId,
+        nickname,
+      );
 
       socket.on('connect', () => {
         set({ isConnected: true, isConnecting: false, socket });
@@ -141,6 +160,27 @@ export const useSocketStore = create<SocketState>((set, get) => ({
       socket.on('word-not-match', (data) => {
         set({
           messages: [...get().messages, data],
+        });
+      });
+
+      socket.on('score', (data) => {
+        set({
+          score: data,
+        });
+      });
+
+      socket.on('leader-board', (data) => {
+        set({
+          leaderBoard: {
+            loading: false,
+            data: data,
+          },
+        });
+      });
+
+      socket.on('rank', (data) => {
+        set({
+          rank: data,
         });
       });
     } catch (error) {

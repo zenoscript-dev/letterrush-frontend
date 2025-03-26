@@ -1,6 +1,10 @@
 import { useEffect, useRef } from "react";
-import { Message } from "../../stores/useSocketStore";
+import { Message, MessageType } from "../../stores/useSocketStore";
 import { cn } from "../../utils/cn";
+import PlayerJoinedOrLeftMessage from "./chatMessages/PlayerJoinedOrLeftMessage";
+import WordDidNotMatchMessage from "./chatMessages/WordDidNotMatchMessage";
+import WordMatchMessage from "./chatMessages/WordMatchMessage";
+import GameStartedMessage from "./chatMessages/GameStarted";
 
 const ChatBody = ({socketMessages}: {socketMessages: Message[]}) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -19,6 +23,18 @@ const ChatBody = ({socketMessages}: {socketMessages: Message[]}) => {
     }
   }, [socketMessages]);
 
+  const handleRenderMessage = (message: Message) => {
+    if (message.type === MessageType.WORD_MATCH) {
+      return <WordMatchMessage message={message} />
+    }else if (message.type === MessageType.WORD_NOT_MATCH) {
+      return <WordDidNotMatchMessage message={message} />
+    }else if(message.type === MessageType.PLAYER_JOINED || message.type === MessageType.PLAYER_LEFT){
+      return <PlayerJoinedOrLeftMessage message={message} />
+    }else if(message.type === MessageType.GAME_STARTED){
+      return <GameStartedMessage message={message} />
+    }
+  }
+
   return (
     <div
     ref={messagesContainerRef}
@@ -30,7 +46,7 @@ const ChatBody = ({socketMessages}: {socketMessages: Message[]}) => {
         key={message.id}
         className={cn('flex flex-col', message.nickName === nickName ? 'items-end' : 'items-start')}
       >
-        <div
+        {/* <div
           className={cn(
             'p-3 rounded-lg max-w-[70%] break-words flex flex-col gap-2',
             message.nickName === nickName ? 'bg-purple-600 text-white' : 'bg-gray-700 text-gray-200'
@@ -38,7 +54,8 @@ const ChatBody = ({socketMessages}: {socketMessages: Message[]}) => {
         >
           <p className="text-sm text-gray-400 font-bold ">[{message.nickName}]</p>
           <p className="text-base">{message.message}</p>
-        </div>
+        </div> */}
+        {handleRenderMessage(message)}
         <span className='text-xs text-gray-500 mt-1'>
           {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
         </span>

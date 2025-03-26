@@ -12,6 +12,12 @@ const ChatInput = ({
 }) => {
   const [newMessage, setNewMessage] = useState('');
 
+  const sendMessage = () => {
+    if (newMessage.trim() === '') return;
+    handleSendMessage(newMessage);
+    setNewMessage('');
+  }
+
 
   return (
     <div className='mt-4 flex items-center gap-3'>
@@ -20,14 +26,14 @@ const ChatInput = ({
               type='text'
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSendMessage(newMessage)}
+              onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
               onPaste={(e) => e.preventDefault()}
               onCopy={(e) => e.preventDefault()}
               placeholder={`Type "${randomWord ? randomWord : ''}"" to score points...`}
               className='flex-1 rounded-lg bg-gray-800 p-3 text-sm text-white placeholder-gray-400 focus:ring-2 focus:ring-purple-500 transition-all duration-300'
             />
             <Button
-              onClick={() => handleSendMessage(newMessage)}
+              onClick={() => sendMessage()}
               disabled={!newMessage.trim()}
               size="sm"
               className='bg-purple-600 rounded-lg text-white text-sm font-bold hover:bg-purple-700 transition-all duration-300 px-3 py-2'
