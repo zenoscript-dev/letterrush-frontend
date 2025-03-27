@@ -6,7 +6,7 @@ const WordDidNotMatchMessage = ({message}: {message: Message}) => {
       <div className="flex flex-col gap-1">
         <p className="text-sm text-rose-200 font-bold">❌ Word Did Not Match!</p>
         <p className="text-base font-medium">
-          {message.message} <span className="text-sm text-rose-200">-50</span>
+          {message.message} <span className="text-sm text-rose-200"></span>
         </p>
       </div>
     </div>

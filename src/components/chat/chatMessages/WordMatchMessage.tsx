@@ -6,7 +6,7 @@ const WordMatchMessage = ({message}: {message: Message}) => {
       <div className="flex flex-col gap-1">
         <p className="text-sm text-emerald-200 font-bold">🎯 Word Match!</p>
         <p className="text-base font-medium">
-          {message.message} <span className="text-sm text-emerald-200">+100</span>
+          {message.message} <span className="text-sm text-emerald-200">+1 point</span>
         </p>
       </div>
     </div>
