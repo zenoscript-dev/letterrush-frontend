@@ -11,7 +11,7 @@
 
 @layer base {
   body {
-    @apply bg-bg-color;
+    @apply bg-primary-bg;
     font-family: 'Neuropolitical', sans-serif;
     /* overflow: hidden; */
   }

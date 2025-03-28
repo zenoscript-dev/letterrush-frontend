@@ -8,7 +8,12 @@ import { ChatHeader } from './ChatHeader';
 import ChatInput from './ChatInput';
 
 const Chat = ({ nickName }: { nickName: string }) => {
-  const { submitWord, messages: socketMessages, leaveRoom, randomWord } = useSocketStore();
+  const {
+    submitWord,
+    messages: socketMessages,
+    leaveRoom,
+    randomWord,
+  } = useSocketStore();
   const [showExitModal, setShowExitModal] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -28,7 +33,7 @@ const Chat = ({ nickName }: { nickName: string }) => {
       e.returnValue = '';
       return 'You will lose all your game progress if you leave. Are you sure?';
     };
-    
+
     window.addEventListener('beforeunload', handleBeforeUnload);
     return () => window.removeEventListener('beforeunload', handleBeforeUnload);
   }, []);
@@ -66,11 +71,15 @@ const Chat = ({ nickName }: { nickName: string }) => {
 
   if (isMobile) {
     return (
-      <div className='flex items-center justify-center h-screen bg-gray-900 p-6 text-white'>
+      <div className='flex h-screen items-center justify-center bg-gray-900 p-6 text-white'>
         <div className='text-center'>
-          <h2 className='text-2xl font-bold mb-4'>Desktop Mode Required</h2>
-          <p className='text-gray-300'>Please switch to desktop mode to use this application.</p>
-          <p className='text-gray-300 mt-2'>The game experience is optimized for larger screens.</p>
+          <h2 className='mb-4 text-2xl font-bold'>Desktop Mode Required</h2>
+          <p className='text-gray-300'>
+            Please switch to desktop mode to use this application.
+          </p>
+          <p className='mt-2 text-gray-300'>
+            The game experience is optimized for larger screens.
+          </p>
         </div>
       </div>
     );
@@ -79,19 +88,25 @@ const Chat = ({ nickName }: { nickName: string }) => {
   return (
     <div className='relative flex h-screen w-full bg-gradient-to-br from-gray-900 to-black p-6 font-sans text-white'>
       {showExitModal && (
-        <ConfirmLeaveGameModel confirmLeave={confirmLeave} handleLeaveCancel={handleLeaveCancel} />
+        <ConfirmLeaveGameModel
+          confirmLeave={confirmLeave}
+          handleLeaveCancel={handleLeaveCancel}
+        />
       )}
 
       <GameSideBar />
 
       {/* Main Chat Area */}
-      <div className='flex-1 flex justify-center'>
-        <div className='flex flex-col w-[800px] bg-gray-900 p-6 rounded-xl shadow-xl'>
-          <ChatHeader randomWord={randomWord} handleLeaveRoom={handleLeaveRoom} />
+      <div className='flex flex-1 justify-center'>
+        <div className='flex w-[800px] flex-col rounded-xl bg-gray-900 p-6 shadow-xl'>
+          <ChatHeader
+            randomWord={randomWord}
+            handleLeaveRoom={handleLeaveRoom}
+          />
           <ChatBody socketMessages={socketMessages} />
-          <ChatInput 
-            handleSendMessage={handleSendMessage} 
-            randomWord={randomWord} 
+          <ChatInput
+            handleSendMessage={handleSendMessage}
+            randomWord={randomWord}
             inputRef={inputRef as React.RefObject<HTMLInputElement>}
           />
         </div>

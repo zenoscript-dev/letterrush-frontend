@@ -14,7 +14,7 @@ class SocketService {
 
   async connect(roomId: string, nickname: string): Promise<Socket> {
     if (!this.socket) {
-      this.socket = await io('http://localhost:4100/game', {
+      this.socket = await io(`${import.meta.env.VITE_SOCKET_URL}/game`, {
         query: { roomId, nickname },
         transports: ['websocket'],
         reconnectionAttempts: 5,

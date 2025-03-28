@@ -18,7 +18,7 @@ export const RoomCard: FC<RoomCardProps> = ({
 
       {/* Main card content */}
       <div
-        className={`relative flex w-full flex-col gap-4 rounded-xl border border-white/20 p-6 shadow-lg shadow-black/10 backdrop-blur-xl transition-all duration-300 hover:bg-white/10`}
+        className={`relative flex w-full flex-col gap-4 rounded-xl border border-white/20 p-6 shadow-lg shadow-black/10 backdrop-blur-xl transition-all duration-300 hover:border-primary-color`}
       >
         <div className='flex items-center justify-between'>
           <p className='text-l font-neuropolitical text-white/90 drop-shadow-lg'>

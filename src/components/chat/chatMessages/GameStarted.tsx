@@ -1,4 +1,4 @@
-import { Message } from '../../../stores/useSocketStore';
+import { Message } from '../../../stores/useChatStore';
 
 interface GameStartedMessageProps {
   message: Message;
@@ -6,7 +6,7 @@ interface GameStartedMessageProps {
 
 const GameStartedMessage = ({ message }: GameStartedMessageProps) => {
   return (
-    <div className="text-center text-sm text-green-500 border border-green-700/50 rounded-lg px-3 py-1">
+    <div className='rounded-lg border border-green-700/50 px-3 py-1 text-center text-sm text-green-500'>
       {message.message}
     </div>
   );

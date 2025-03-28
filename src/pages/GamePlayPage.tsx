@@ -11,18 +11,18 @@ const GamePlayPage = () => {
   if (isConnected) {
     return (
       <div className='h-screen w-screen overflow-hidden bg-bg-color'>
-        <Chat nickName={nickname}/>
+        <Chat nickName={nickname} />
       </div>
     );
   }
- 
+
   if (error) {
     return (
-      <div className="flex flex-col items-center justify-center gap-4">
+      <div className='flex flex-col items-center justify-center gap-4'>
         <div>Error: {error}</div>
-        <button 
-          onClick={() => window.location.href = '/'}
-          className="rounded bg-primary-color px-4 py-2 text-white hover:bg-primary-color/80"
+        <button
+          onClick={() => (window.location.href = '/')}
+          className='rounded bg-primary-color px-4 py-2 text-white hover:bg-primary-color/80'
         >
           Return to Homepage
         </button>
