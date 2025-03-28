@@ -29,7 +29,7 @@ interface ChatState {
   messages: Message[];
 }
 
-export const useChatStore = create<ChatState>((set) => ({
+export const useChatStore = create<ChatState>(() => ({
   loading: false,
   error: null,
   messages: [],
