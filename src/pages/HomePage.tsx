@@ -4,12 +4,14 @@ import { useNavigate } from 'react-router';
 import { v7 as uuidv4 } from 'uuid';
 import { Button } from '../components/Button';
 import { useSocketStore } from '../stores/useSocketStore';
+
 const HomePage = () => {
   const navigate = useNavigate();
   const { disconnectSocket } = useSocketStore();
   const [nickname, setNickname] = useState(
     sessionStorage.getItem('nickname') || '',
   );
+
   useEffect(() => {
     disconnectSocket(nickname);
     setNickname('');
@@ -32,11 +34,13 @@ const HomePage = () => {
   };
 
   return (
-    <div className='flex min-h-screen flex-col items-center justify-center'>
-      <h1 className='mb-12 text-6xl text-primary-color'>LETTER RUSH</h1>
-      <div className='flex w-full max-w-fit gap-8 px-4'>
-        <div className='flex-1 rounded-lg border-2 border-primary-color bg-bg-color/30 p-6 backdrop-blur'>
-          <h2 className='mb-4 text-center text-2xl text-primary-color'>
+    <div className='flex min-h-screen flex-col items-center justify-center p-4'>
+      <h1 className='mb-8 md:mb-12 text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-center text-primary-color'>
+        LETTER RUSH
+      </h1>
+      <div className='w-full max-w-sm md:max-w-md lg:max-w-lg mx-auto'>
+        <div className='rounded-lg border-2 border-primary-color bg-bg-color/30 p-4 md:p-6 backdrop-blur'>
+          <h2 className='mb-4 text-center text-xl sm:text-2xl text-primary-color'>
             Play as Guest
           </h2>
           <form
@@ -51,9 +55,9 @@ const HomePage = () => {
               placeholder='Enter your nickname'
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
-              className='rounded border border-primary-color bg-gray-800 p-3 text-white focus:outline-none focus:ring-2 focus:ring-primary-color'
+              className='w-full rounded border border-primary-color bg-gray-800 p-2 md:p-3 text-white focus:outline-none focus:ring-2 focus:ring-primary-color'
             />
-            <Button variant='default' size='lg' type='submit'>
+            <Button variant='default' size='lg' type='submit' className='w-full'>
               Join as Guest
             </Button>
           </form>
